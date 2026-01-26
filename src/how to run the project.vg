@@ -1,0 +1,4 @@
+TO RUN THE WEBSITE:
+1. Open the terminal in the project folder.
+2. Run the command: npm run dev
+3. Open the link provided by the terminal in your browser.
