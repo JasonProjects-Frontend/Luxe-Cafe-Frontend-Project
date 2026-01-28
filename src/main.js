@@ -235,6 +235,8 @@ const overlay = document.getElementById('overlay');
 const cartItemsContainer = document.getElementById('cart-items');
 const cartCountSpan = document.getElementById('cart-count');
 const cartTotalPriceSpan = document.getElementById('cart-total-price');
+const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+const navLinks = document.getElementById('nav-links');
 
 // Initialize
 function init() {
@@ -270,7 +272,7 @@ function renderProducts() {
   productGrid.innerHTML = products.map(product => `
     <div class="product-card">
       <div class="product-image-container">
-        <img src="${product.image}" alt="${product.name}" class="product-image">
+        <img src="${product.image}" alt="${product.name}" class="product-image" loading="lazy">
       </div>
       <div class="product-info">
         <span class="product-category">${product.category}</span>
@@ -386,6 +388,30 @@ function setupEventListeners() {
       }, 300); // Slight delay for sidebar to close
     });
   }
+
+  // Mobile Menu Toggle
+  if (mobileMenuToggle) {
+    mobileMenuToggle.addEventListener('click', () => {
+      mobileMenuToggle.classList.toggle('active');
+      navLinks.classList.toggle('active');
+      overlay.classList.toggle('open');
+    });
+  }
+
+  // Close mobile menu on link click
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenuToggle.classList.remove('active');
+      navLinks.classList.remove('active');
+      overlay.classList.remove('open');
+    });
+  });
+
+  // Close mobile menu when overlay is clicked
+  overlay.addEventListener('click', () => {
+    mobileMenuToggle.classList.remove('active');
+    navLinks.classList.remove('active');
+  });
 }
 
 init();
